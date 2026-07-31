@@ -1,0 +1,12 @@
+function	provenance	current_source	current_header	original_source	original_header	linux	macos	freebsd
+p101_hcreate	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_hdestroy	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_hsearch	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_insque	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_lfind	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_lsearch	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_remque	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_tdelete	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_tfind	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_tsearch	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
+p101_twalk	XSI	libraries/lib_search/src/posix_xsi/search.c	libraries/lib_search/include/p101_search/search.h	libraries/lib_posix_xsi/src/search.c	libraries/lib_posix_xsi/include/p101_posix_xsi/p101_search.h	yes	yes	yes
