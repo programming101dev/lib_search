@@ -2,8 +2,10 @@
 #include <p101_env/env.h>
 #include <p101_error/error.h>
 #include <p101_search/search.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static int failures;
 
@@ -38,11 +40,11 @@ static int fail_next_call(const struct p101_env *env, const char *call_name, voi
 static void test_p101_hcreate(struct p101_env *env, struct p101_error *err)
 {
 #ifdef __linux__
-    static const int errors[] = {EINVAL, ENOMEM, ESRCH};
+    static const int errors[] = {EIO};
 #elif defined(__APPLE__)
     static const int errors[] = {EINVAL, ENOMEM};
 #elif defined(__FreeBSD__)
-    static const int errors[] = {ENOMEM, ESRCH};
+    static const int errors[] = {ENOMEM};
 #else
     static const int errors[] = {ENOMEM};
 #endif
@@ -65,7 +67,7 @@ static void test_p101_hcreate(struct p101_env *env, struct p101_error *err)
 static void test_p101_hsearch(struct p101_env *env, struct p101_error *err)
 {
 #ifdef __linux__
-    static const int errors[] = {EINVAL, ENOMEM, ESRCH};
+    static const int errors[] = {ENOMEM, ESRCH};
 #elif defined(__APPLE__)
     static const int errors[] = {EINVAL, ENOMEM};
 #elif defined(__FreeBSD__)
