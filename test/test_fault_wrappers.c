@@ -20,6 +20,7 @@ static int failures;
 struct fault_state
 {
     int checks;
+    int errnum;
 };
 
 static int fail_next_call(const struct p101_env *env, const char *call_name, void *user_data)
@@ -30,62 +31,114 @@ static int fail_next_call(const struct p101_env *env, const char *call_name, voi
     (void)call_name;
     state = user_data;
     state->checks++;
-    return EIO;
+    return state->errnum;
 }
 
 /* P101_TEST_CASE(p101_hcreate) */
 static void test_p101_hcreate(struct p101_env *env, struct p101_error *err)
 {
-    struct fault_state state = {0};
+#ifdef __linux__
+    static const int errors[] = {EINVAL, ENOMEM, ESRCH};
+#elif defined(__APPLE__)
+    static const int errors[] = {EINVAL, ENOMEM};
+#elif defined(__FreeBSD__)
+    static const int errors[] = {ENOMEM, ESRCH};
+#else
+    static const int errors[] = {ENOMEM};
+#endif
 
-    p101_env_set_fault_injector(env, fail_next_call, &state);
-    int result = p101_hcreate(env, err, 0);
-    (void)result;
-    EXPECT(state.checks == 1);
-    EXPECT(p101_error_has_error(err));
-    p101_error_reset(err);
+    for(size_t index = 0U; index < sizeof(errors) / sizeof(errors[0]); index++)
+    {
+        struct fault_state state = {0, errors[index]};
+
+        p101_env_set_fault_injector(env, fail_next_call, &state);
+        int result = p101_hcreate(env, err, 0);
+        (void)result;
+        EXPECT(state.checks == 1);
+        EXPECT(p101_error_is_errno(err, state.errnum));
+        p101_error_reset(err);
+    }
     p101_env_set_fault_injector(env, NULL, NULL);
 }
 
 /* P101_TEST_CASE(p101_hsearch) */
 static void test_p101_hsearch(struct p101_env *env, struct p101_error *err)
 {
-    struct fault_state state = {0};
+#ifdef __linux__
+    static const int errors[] = {EINVAL, ENOMEM, ESRCH};
+#elif defined(__APPLE__)
+    static const int errors[] = {EINVAL, ENOMEM};
+#elif defined(__FreeBSD__)
+    static const int errors[] = {ENOMEM, ESRCH};
+#else
+    static const int errors[] = {ENOMEM};
+#endif
 
-    p101_env_set_fault_injector(env, fail_next_call, &state);
-    ENTRY *result = p101_hsearch(env, err, (ENTRY){0}, 0);
-    (void)result;
-    EXPECT(state.checks == 1);
-    EXPECT(p101_error_has_error(err));
-    p101_error_reset(err);
+    for(size_t index = 0U; index < sizeof(errors) / sizeof(errors[0]); index++)
+    {
+        struct fault_state state = {0, errors[index]};
+
+        p101_env_set_fault_injector(env, fail_next_call, &state);
+        ENTRY *result = p101_hsearch(env, err, (ENTRY){0}, 0);
+        (void)result;
+        EXPECT(state.checks == 1);
+        EXPECT(p101_error_is_errno(err, state.errnum));
+        p101_error_reset(err);
+    }
     p101_env_set_fault_injector(env, NULL, NULL);
 }
 
 /* P101_TEST_CASE(p101_lsearch) */
 static void test_p101_lsearch(struct p101_env *env, struct p101_error *err)
 {
-    struct fault_state state = {0};
+#ifdef __linux__
+    static const int errors[] = {EIO};
+#elif defined(__APPLE__)
+    static const int errors[] = {EIO};
+#elif defined(__FreeBSD__)
+    static const int errors[] = {EIO};
+#else
+    static const int errors[] = {EIO};
+#endif
 
-    p101_env_set_fault_injector(env, fail_next_call, &state);
-    void *result = p101_lsearch(env, err, NULL, NULL, NULL, 0, NULL);
-    (void)result;
-    EXPECT(state.checks == 1);
-    EXPECT(p101_error_has_error(err));
-    p101_error_reset(err);
+    for(size_t index = 0U; index < sizeof(errors) / sizeof(errors[0]); index++)
+    {
+        struct fault_state state = {0, errors[index]};
+
+        p101_env_set_fault_injector(env, fail_next_call, &state);
+        void *result = p101_lsearch(env, err, NULL, NULL, NULL, 0, NULL);
+        (void)result;
+        EXPECT(state.checks == 1);
+        EXPECT(p101_error_is_errno(err, state.errnum));
+        p101_error_reset(err);
+    }
     p101_env_set_fault_injector(env, NULL, NULL);
 }
 
 /* P101_TEST_CASE(p101_tsearch) */
 static void test_p101_tsearch(struct p101_env *env, struct p101_error *err)
 {
-    struct fault_state state = {0};
+#ifdef __linux__
+    static const int errors[] = {EIO};
+#elif defined(__APPLE__)
+    static const int errors[] = {EIO};
+#elif defined(__FreeBSD__)
+    static const int errors[] = {EIO};
+#else
+    static const int errors[] = {EIO};
+#endif
 
-    p101_env_set_fault_injector(env, fail_next_call, &state);
-    void *result = p101_tsearch(env, err, NULL, NULL, NULL);
-    (void)result;
-    EXPECT(state.checks == 1);
-    EXPECT(p101_error_has_error(err));
-    p101_error_reset(err);
+    for(size_t index = 0U; index < sizeof(errors) / sizeof(errors[0]); index++)
+    {
+        struct fault_state state = {0, errors[index]};
+
+        p101_env_set_fault_injector(env, fail_next_call, &state);
+        void *result = p101_tsearch(env, err, NULL, NULL, NULL);
+        (void)result;
+        EXPECT(state.checks == 1);
+        EXPECT(p101_error_is_errno(err, state.errnum));
+        p101_error_reset(err);
+    }
     p101_env_set_fault_injector(env, NULL, NULL);
 }
 
