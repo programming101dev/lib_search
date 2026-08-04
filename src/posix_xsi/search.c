@@ -22,7 +22,7 @@ int p101_hcreate(const struct p101_env *env, struct p101_error *err, size_t nel)
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, 0);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, 0);
     errno   = 0;
     ret_val = hcreate(nel);
 
@@ -35,7 +35,7 @@ int p101_hcreate(const struct p101_env *env, struct p101_error *err, size_t nel)
         P101_TRACK_RESOURCE_ACQUIRE(env, "process-hash-table", "global", nel, NULL);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -53,7 +53,7 @@ ENTRY *p101_hsearch(const struct p101_env *env, struct p101_error *err, ENTRY it
     ENTRY *ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, NULL);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, NULL);
     errno   = 0;
     ret_val = hsearch(item, action);
 
@@ -62,7 +62,7 @@ ENTRY *p101_hsearch(const struct p101_env *env, struct p101_error *err, ENTRY it
         P101_ERROR_RAISE_ERRNO(err, search_error_code(ENOMEM));
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -91,7 +91,7 @@ void *p101_lsearch(const struct p101_env *env, struct p101_error *err, const voi
     void *ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, NULL);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, NULL);
     errno   = 0;
     ret_val = lsearch(key, base, nelp, width, compar);
 
@@ -100,7 +100,7 @@ void *p101_lsearch(const struct p101_env *env, struct p101_error *err, const voi
         P101_ERROR_RAISE_ERRNO(err, search_error_code(ENOMEM));
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -141,7 +141,7 @@ void *p101_tsearch(const struct p101_env *env, struct p101_error *err, const voi
     void *ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, NULL);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, NULL);
     errno   = 0;
     ret_val = tsearch(key, rootp, compar);
 
@@ -150,7 +150,7 @@ void *p101_tsearch(const struct p101_env *env, struct p101_error *err, const voi
         P101_ERROR_RAISE_ERRNO(err, search_error_code(ENOMEM));
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
