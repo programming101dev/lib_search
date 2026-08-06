@@ -22,7 +22,7 @@ set(p101_search_SOURCES
         src/search.c
 )
 set(p101_search_HEADERS
-        include/p101_search/search.h
+        include/p101_search/p101_search.h
 )
 set(p101_search_LINK_LIBRARIES
         p101_error
