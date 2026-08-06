@@ -19,7 +19,7 @@ set(BSD_STANDARD_FLAGS -D_BSD_SOURCE -D__BSD_VISIBLE)
 
 set(LIBRARY_TARGETS p101_search)
 set(p101_search_SOURCES
-        src/posix_xsi/search.c
+        src/search.c
 )
 set(p101_search_HEADERS
         include/p101_search/search.h
