@@ -15,6 +15,7 @@
  */
 
 #include "p101_search/p101_search.h"
+#include <p101_env/resource_classes.h>
 #include <p101_env/wrapper.h>
 
 static int search_error_code(int fallback);
@@ -48,7 +49,7 @@ int p101_hcreate(const struct p101_env *env, struct p101_error *err, size_t nel)
     }
     else
     {
-        P101_TRACK_RESOURCE_ACQUIRE(env, "process-hash-table", "global", nel, NULL);
+        P101_TRACK_RESOURCE_ACQUIRE(env, P101_RESOURCE_CLASS_PROCESS_HASH_TABLE, "global", nel, NULL);
     }
 
     P101_WRAPPER_DONE(env);
@@ -60,7 +61,7 @@ void p101_hdestroy(const struct p101_env *env)
     P101_TRACE(env);
     errno = 0;
     hdestroy();
-    P101_TRACK_RESOURCE_RELEASE(env, "process-hash-table", "global", NULL);
+    P101_TRACK_RESOURCE_RELEASE(env, P101_RESOURCE_CLASS_PROCESS_HASH_TABLE, "global", NULL);
     P101_TRACE_EXIT(env);
 }
 
