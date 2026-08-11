@@ -704,6 +704,13 @@ static void test_p101_tsearch(struct p101_env *env, struct p101_error *err)
                 }
                 p101_error_reset(native_err);
             }
+            if(native_argument_3 != NULL)
+            {
+                void *native_delete_result;
+
+                native_delete_result = tdelete(NULL, &native_argument_3, native_compare_callback);
+                (void)native_delete_result;
+            }
             native_child_status = native_passed ? EXIT_SUCCESS : EXIT_FAILURE;
         native_child_done_:
             p101_env_destroy(native_env);
